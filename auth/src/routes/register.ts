@@ -38,7 +38,7 @@ router.post(
                 id: user.id,
                 email: user.email,
             },
-            "secret_private_key"
+            process.env.JWT_KEY! // checked at index.ts
         );
 
         req.session = { jwt: userJwt };
