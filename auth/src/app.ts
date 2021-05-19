@@ -13,7 +13,12 @@ import { NotFoundError } from "./errors/not-found-error";
 const app = express();
 app.set("trust proxy", true); // In order to trust Ingress-Nginx
 app.use(json());
-app.use(cookieSession({ signed: false, secure: true }));
+app.use(
+    cookieSession({
+        signed: false,
+        secure: process.env.NODE_ENV !== "test",
+    })
+);
 
 app.use(currentUserRouter);
 app.use(loginRouter);
