@@ -26,3 +26,15 @@ it("returns a 400 with missing email or password", async () => {
     await request(app).post("/api/users/register").send({ email: "test@test.com" }).expect(400);
     await request(app).post("/api/users/register").send({ password: "password" }).expect(400);
 });
+
+it("disallows duplicate emails", async () => {
+    await request(app)
+        .post("/api/users/register")
+        .send({ email: "test@test.com", password: "password" })
+        .expect(201);
+
+    await request(app)
+        .post("/api/users/register")
+        .send({ email: "test@test.com", password: "password" })
+        .expect(400);
+});
