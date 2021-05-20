@@ -1,21 +1,19 @@
 import { useState } from "react";
-import axios from "axios";
 import useRequest from "../../hooks/use-request";
 
 export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState([]);
+
+    const { doRequest, errors } = useRequest({
+        url: "/api/users/register",
+        method: "post",
+        body: { email, password },
+    });
 
     const onSubmit = async (event) => {
         event.preventDefault();
-
-        try {
-            const response = await axios.post("/api/users/register", { email, password });
-            console.log(response.data);
-        } catch (error) {
-            setErrors(error.response.data.errors);
-        }
+        doRequest();
     };
 
     return (
@@ -38,9 +36,7 @@ export default function Register() {
                     className="form-control"
                 />
             </div>
-            {/* {errors.length > 0 && (
-
-            )} */}
+            {errors}
             <button className="btn btn-primary">Register</button>
         </form>
     );
