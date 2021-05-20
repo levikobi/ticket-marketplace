@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import useRequest from "../../hooks/use-request";
 
 export default function Register() {
     const [email, setEmail] = useState("");
@@ -37,16 +38,9 @@ export default function Register() {
                     className="form-control"
                 />
             </div>
-            {errors.length > 0 && (
-                <div className="alert alert-danger">
-                    <h4>Oops...</h4>
-                    <ul className="my-0">
-                        {errors.map((error) => (
-                            <li key={error.message}>{error.message}</li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+            {/* {errors.length > 0 && (
+
+            )} */}
             <button className="btn btn-primary">Register</button>
         </form>
     );
