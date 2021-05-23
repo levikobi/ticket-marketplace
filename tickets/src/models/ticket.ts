@@ -9,7 +9,7 @@ interface TicketAttributes {
 interface TicketDocument extends TicketAttributes, mongoose.Document {}
 
 interface TicketModel extends mongoose.Model<TicketDocument> {
-    build(attributes: TicketAttributes): TicketModel;
+    build(attributes: TicketAttributes): TicketDocument;
 }
 
 const ticketSchema = new mongoose.Schema(
