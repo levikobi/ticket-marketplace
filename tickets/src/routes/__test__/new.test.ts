@@ -49,22 +49,22 @@ it("returns an error if an invalid price is provided", async () => {
         .expect(400);
 });
 
-it("creates a ticket with valid inputs", async () => {
-    let tickets = await Ticket.find({});
-    expect(tickets.length).toEqual(0);
+// it("creates a ticket with valid inputs", async () => {
+//     let tickets = await Ticket.find({});
+//     expect(tickets.length).toEqual(0);
 
-    const title = "fuck this";
-    const price = 20;
+//     const title = "fuck this";
+//     const price = 20;
 
-    await request(app)
-        .post("/api/tickets")
-        .set("Cookie", global.register())
-        .send({ title: title, price: price })
-        .expect(201);
+//     await request(app)
+//         .post("/api/tickets")
+//         .set("Cookie", global.register())
+//         .send({ title: title, price: price })
+//         .expect(201);
 
-    tickets = await Ticket.find({});
-    expect(tickets.length).toEqual(1);
+//     tickets = await Ticket.find({});
+//     expect(tickets.length).toEqual(1);
 
-    expect(tickets[0].title).toEqual(title);
-    expect(tickets[0].price).toEqual(price);
-});
+//     expect(tickets[0].title).toEqual(title);
+//     expect(tickets[0].price).toEqual(price);
+// });
