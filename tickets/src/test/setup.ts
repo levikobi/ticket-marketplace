@@ -8,6 +8,7 @@ declare global {
     namespace NodeJS {
         interface Global {
             register(): string[];
+            generateId(): string;
         }
     }
 }
@@ -49,4 +50,8 @@ global.register = () => {
     const sessionJSON = JSON.stringify(session);
     const base64 = Buffer.from(sessionJSON).toString("base64");
     return [`express:sess=${base64}`];
+};
+
+global.generateId = () => {
+    return new mongoose.Types.ObjectId().toHexString();
 };
