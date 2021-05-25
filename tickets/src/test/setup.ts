@@ -42,7 +42,7 @@ afterAll(async () => {
 
 global.register = () => {
     const payload = {
-        id: "on3jk42bo0423n",
+        id: global.generateId(),
         email: "test@test.com",
     };
     const token = jwt.sign(payload, process.env.JWT_KEY!);
