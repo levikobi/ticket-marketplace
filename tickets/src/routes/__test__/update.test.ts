@@ -1,5 +1,6 @@
 import request from "supertest";
 import { app } from "../../app";
+import { natsWrapper } from "../../nats-wrapper";
 
 it("returns a 404 if the provided id does not exist", async () => {
     const id = global.generateId();
@@ -68,4 +69,20 @@ it("updates the ticket provided valid input", async () => {
 
     expect(ticketResponse.body.title).toEqual("new title");
     expect(ticketResponse.body.price).toEqual(3);
+});
+
+it("publishes an event", async () => {
+    const cookie = global.register();
+    const response = await request(app)
+        .post("/api/tickets")
+        .set("Cookie", cookie)
+        .send({ title: "some title", price: 40 });
+
+    await request(app)
+        .put(`/api/tickets/${response.body.id}`)
+        .set("Cookie", cookie)
+        .send({ title: "", price: 20 })
+        .expect(400);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
