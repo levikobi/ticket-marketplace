@@ -23,7 +23,7 @@ router.delete("/api/orders/:orderId", requireAuth, async (req: Request, res: Res
     order.status = OrderStatus.Cancelled;
     await order.save();
 
-    res.send(order);
+    res.status(204).send(order);
 });
 
 export { router as deleteOrderRouter };
