@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 declare global {
     namespace NodeJS {
         interface Global {
-            register(): string[];
+            register(id?: string): string[];
             generateId(): string;
         }
     }
@@ -41,9 +41,9 @@ afterAll(async () => {
     await mongoose.connection.close();
 });
 
-global.register = () => {
+global.register = (id?: string) => {
     const payload = {
-        id: global.generateId(),
+        id: id || global.generateId(),
         email: "test@test.com",
     };
     const token = jwt.sign(payload, process.env.JWT_KEY!);
